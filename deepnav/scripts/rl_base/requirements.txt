@@ -1,0 +1,11 @@
+torch==1.8.1
+tensorboardX==2.4
+gym
+einops
+
+# For env: LunarLander
+box2d==2.3.10
+
+# For env: Ant, Humanoid
+Issacgym
+

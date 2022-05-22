@@ -1,0 +1,32 @@
+Bootstrap: docker
+From: ros:melodic
+
+%setup
+    mkdir -p ${SINGULARITY_ROOTFS}/jackal_ws/src
+
+%files
+    . /jackal_ws/src/nav-competition-icra2022
+
+%post -c /bin/bash
+    sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+    apt -y update; apt-get -y install python3-venv
+    python3 -m venv /venv
+    export PATH="/venv/bin:$PATH"
+    pip3 install --upgrade pip
+    pip3 install defusedxml rospkg netifaces numpy
+	pip3 install torch
+    
+    cd /jackal_ws/src
+	sudo chmod -R 777 nav-competition-icra2022/
+    tar -xvf nav-competition-icra2022/git/ros.tar
+
+    source /opt/ros/melodic/setup.bash
+    cd ..
+    rosdep init; rosdep update
+    rosdep install -y --from-paths . --ignore-src --rosdistro=melodic
+    source devel/setup.bash
+    catkin_make
+
+%environment
+    export PATH="/venv/bin:$PATH"
