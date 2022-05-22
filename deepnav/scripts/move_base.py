@@ -129,7 +129,6 @@ def run():
             a_avg, a_std, a_noise, logprob = agent.select_action(state, state1d)
             action = a_avg
             action = action.numpy()
-            print(action)
 
             # action = (1, 0, 0)
 

@@ -30,7 +30,7 @@ class Arguments:
         self.learning_rate = 3e-5
         self.learning_rate_critic = self.learning_rate
         self.learning_rate_policy = self.learning_rate * 1.
-        self.net_dim = 256
+        self.net_dim = 512
         self.activation = torch.nn.ReLU  # ReLU, PReLU, GELU
         self.optimizer = torch.optim.Adam
 
@@ -49,8 +49,8 @@ class Arguments:
         self.repeat_times = 2 * self.N_Bs
         self.soft_update_tau = 1 - math.pow(0.1, 1.0/self.N_Bs)  # smooth critic
 
-        self.update_step = 1e3  # the minimum step between update
-        self.update_start = max(self.batch_size * 2, 5e4)
+        self.update_step = 2e3  # the minimum step between update
+        self.update_start = max(self.batch_size * 2, 3e4)
         self.update_turn = 1  # the minimum turn between update
         self.update_turn_inc = []
 
@@ -63,7 +63,7 @@ class Arguments:
                                         gamma=1.)
 
         '''Arguments for evaluate and save'''
-        self.para_dir = 'deepnav/scripts/agent'
+        self.para_dir = 'deepnav/scripts/pkl/agent'
         self.logger = None  # SummaryWriter(log_dir=args.work_dir)
 
 args = Arguments()
